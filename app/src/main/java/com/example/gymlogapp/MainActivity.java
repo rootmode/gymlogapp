@@ -3,6 +3,10 @@ package com.example.gymlogapp;
 // updating branch
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,17 +14,56 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.gymlogapp.databinding.ActivityMainBinding;
+
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
+
+    ActivityMainBinding binding;
+
+    String mExercise ="";
+    double mWeight = 0.0;
+    int mReps = 0;
+
+    private static final String TAG = "DAC_GYMLOG"; // Log tag for system log
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.logDisplayTextView.setMovementMethod(new ScrollingMovementMethod()); // scroll
+
+        binding.logButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getInformationFromDisplay();
+                updateDisplay();
+                //Toast.makeText(MainActivity.this, "IT WORKED!", Toast.LENGTH_SHORT).show();
+            }
         });
+
+    }
+
+    private void updateDisplay() {
+        String currentInfo = binding.logDisplayTextView.getText().toString();
+        String newDisplay= String.format(Locale.US, "Exercise:%s%nWeight:%.2f%nReps:%d%n=-=-=-=%n%s", mExercise, mWeight, mReps,currentInfo);
+        binding.logDisplayTextView.setText(newDisplay);
+    }
+
+    private void getInformationFromDisplay() {
+        mExercise = binding.exerciseInputEditText.getText().toString(); // getting info from input
+        try{
+            mWeight = Double.parseDouble(binding.weightInputEditText.getText().toString());
+        } catch (NumberFormatException e){
+            Log.d(TAG, "Error reading value from Weight edit text.");
+        }
+        try{
+            mReps = Integer.parseInt(binding.repInputEditText.getText().toString());
+        } catch (NumberFormatException e){
+            Log.d(TAG, "Error reading value from Reps edit text.");
+        }
     }
 }
