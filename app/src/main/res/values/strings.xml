@@ -6,4 +6,8 @@
     <string name="enter_reps">Enter reps</string>
     <string name="weight">Weight</string>
     <string name="log">Log!</string>
+    <string name="login_welcome">Welcome to the GymLog. Please Sign in.</string>
+    <string name="username">Username</string>
+    <string name="password">Passwords</string>
+    <string name="login">Login</string>
 </resources>
