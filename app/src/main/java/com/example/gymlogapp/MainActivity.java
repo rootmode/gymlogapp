@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.gymlogapp.database.GymLogRepository;
 import com.example.gymlogapp.database.entities.GymLog;
 import com.example.gymlogapp.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
