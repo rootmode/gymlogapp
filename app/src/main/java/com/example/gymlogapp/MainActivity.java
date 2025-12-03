@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     double mWeight = 0.0;
     int mReps = 0;
 
-    private static final String TAG = "DAC_GYMLOG"; // Log tag for system log
+    public static final String TAG = "DAC_GYMLOG"; // Log tag for system log
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
